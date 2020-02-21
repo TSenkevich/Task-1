@@ -1,29 +1,47 @@
 'use strict';// it  meanes We write ES6
 
-let  Money = prompt('Your budget for a month', ' '),
-     Time = prompt('Enter the date YYYY-MM-DD');
+let  money = +prompt('Your budget for a month', ' '),
+     time = prompt('Enter the date YYYY-MM-DD');
     
-console.log(Money);
-console.log(Time);
 
 let appData = {
-    Budget : Money,
-    timeData : Time,
+    budget : money,
+    timeData : time,
     expenses : {},
     optionalExpenses : {},
     income : [],
     savings : false
 };
+// ask user two times the same queshions
+for (let i = 0; i < 2; i++) {
+    let nameItem = prompt('Enter the required cost item this month', ''),
+        costItem = prompt('How much will it cost?', '');
+     // check answers is not cancel or empty string
+        if (
+          nameItem != null &&  costItem != null 
+         && nameItem != '' && costItem != '' && nameItem.length <50
+         ) {
+             appData.expenses[nameItem] = costItem;
+        }
+       else { 
+        nameItem = prompt('Enter the required cost item this month', '');
+        costItem = prompt('How much will it cost?', '');
+        appData.expenses[nameItem] = costItem;
+       }               
+}; 
 
-let q1 = prompt('Enter the required cost item this month', ''),
-    q2 = prompt('How much will it cost?', ''),
-    q3 = prompt('Enter the required cost item this month', ''),
-    q4 = prompt('How much will it cost?', '');
+appData.mooneyPerDay = appData.budget/30;
+//output message with the value mooneyPerDay
+alert("Budget per day: " + appData.mooneyPerDay);
 
-    
-appData.expenses[q1] = q2;
-appData.expenses[q3] = q4;
-
-console.log(appData['expenses']);
-
-alert(Money/30);
+if (appData.mooneyPerDay <= 100) {
+    console.log('You are poor');
+}
+else  if (appData.mooneyPerDay <= 500){
+    console.log('Middle level');
+}
+else if (appData.mooneyPerDay > 500){ 
+    console.log('You are rich');
+}
+else {console.log('Incorrect data');
+};
